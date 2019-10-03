@@ -45,7 +45,7 @@ class Posts extends Component {
 
             marginTop: 10,
           }}
-          source={require('../images/2.jpg')}></Image>
+          source={this.props.image}></Image>
 
         <View
           style={{
