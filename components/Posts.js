@@ -32,7 +32,7 @@ class Posts extends Component {
             <Text style={{color: 'white', margin: 8}}>{this.props.author}</Text>
           </View>
           <Text style={{color: 'white', margin: 8, color: 'grey'}}>
-           {this.props.time}
+            {this.props.time}
           </Text>
         </View>
 
@@ -91,10 +91,10 @@ class Posts extends Component {
             marginBottom: 5,
             fontWeight: 'bold',
           }}>
-         {this.props.author}
+          {this.props.author}
         </Text>
         <Text style={{color: 'white', marginLeft: 10, fontWeight: 'normal'}}>
-         {this.props.body}
+          {this.props.body}
         </Text>
       </View>
     );

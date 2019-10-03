@@ -1,16 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Container,
-  Content,
-  List,
-  ListItem,
-  Header,
-  Left,
-  Right,
-  Body,
-  Button,
-  View /* All native-base components used in this file */,
-} from 'native-base';
+
 import {
   Platform,
   StatusBar,
@@ -19,6 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
+  View,
 } from 'react-native';
 import {Card} from 'react-native-elements';
 
@@ -27,19 +17,9 @@ import Stories from './stories';
 import Posts from './Posts';
 
 class MainScreen extends Component {
-
-    
-  //   static navigationOptions = {
-  //     headerLeft: (
-  //       <Icon style={{padding: 10}} name="camera" size={30} color="#000" />
-  //     ),
-  //     title: 'INSTAGRAM',
-  //     headerRight: (
-  //       <Icon style={{padding: 10}} name="send" size={30} color="#000" />
-  //     ),
-  //   };
   render() {
-      const body = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.";
+    const body =
+      'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
     return (
       <View style={{flex: 1, backgroundColor: '#000'}}>
         <StatusBar backgroundColor="#2D2121" barStyle="light-content" />
@@ -121,10 +101,30 @@ class MainScreen extends Component {
               </View>
             </View>
 
-            <Posts author="Hannah Tyler" image={require('../images/y.jpg')} time="3 hours ago" body={body} />
-            <Posts author="Clara" image={require('../images/1.jpg')} time="8 hours ago" body={body} />
-            <Posts author="Ariana" image={require('../images/2.jpg')} time="12 hours ago" body={body} />
-            <Posts author="Ellie" image={require('../images/3.jpg')} time="14 hours ago" body={body} />
+            <Posts
+              author="Hannah Tyler"
+              image={require('../images/y.jpg')}
+              time="3 hours ago"
+              body={body}
+            />
+            <Posts
+              author="Clara"
+              image={require('../images/1.jpg')}
+              time="8 hours ago"
+              body={body}
+            />
+            <Posts
+              author="Ariana"
+              image={require('../images/2.jpg')}
+              time="12 hours ago"
+              body={body}
+            />
+            <Posts
+              author="Ellie"
+              image={require('../images/3.jpg')}
+              time="14 hours ago"
+              body={body}
+            />
 
             <View></View>
           </ScrollView>
