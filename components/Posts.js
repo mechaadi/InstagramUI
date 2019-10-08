@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, Text} from 'react-native';
+import {View, Image, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {
   responsiveHeight,
@@ -8,9 +8,16 @@ import {
 } from 'react-native-responsive-dimensions';
 
 class Posts extends Component {
+  static navigationOptions = {
+    header: null
+}
   render() {
+
     return (
       <View style={{padding: 30}}>
+       
+
+       
         <View
           style={{
             flex: 1,

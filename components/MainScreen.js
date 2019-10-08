@@ -8,6 +8,7 @@ import {
   SafeAreaView,
   ScrollView,
   Image,
+  TouchableOpacity,
   View,
 } from 'react-native';
 import {Card} from 'react-native-elements';
@@ -17,7 +18,14 @@ import Stories from './stories';
 import Posts from './Posts';
 import firebase, { firestore } from 'react-native-firebase';
 
+
+
+
 class MainScreen extends Component {
+
+  static navigationOptions = {
+    header: null
+}
 
   
   constructor(props){
@@ -44,8 +52,6 @@ class MainScreen extends Component {
 
           console.log(this.state.post)
           const date1 = this.state.post[0].timestamp;
-     //     console.log(this.timeSince(date1.seconds));
-         // console.log(this.timeSince(date1))
       })
     }
 
@@ -78,13 +84,15 @@ class MainScreen extends Component {
     }
   
 
-
-   // console.log(that.state.post)
   
 
   render() {
+    const {navigate} = this.props.navigation;
+
     const lapsList = this.state.post.map((data) => {
       return (
+        <TouchableOpacity
+        onPress={()=>{console.log("clicked"); navigate('ViewPost', {author: data.author, title: data.title, body: data.body, timestamp: data.timestamp})}}>
         <Posts
               author="Clara"
               image={require('../images/1.jpg')}
@@ -92,6 +100,7 @@ class MainScreen extends Component {
               body={data.body}
               author={data.author}
             />
+            </TouchableOpacity>
       )
     })
     const body =
@@ -118,18 +127,25 @@ class MainScreen extends Component {
                   marginBottom: 20,
                 }}>
                 <View>
+                <TouchableOpacity
+                      backgroundColor={"white"}
+                      onPress={()=>{console.log("clicked"); navigate('ViewPost', {name: 'Jane'})}}>
                   <View
                     style={{
                       flex: 1,
                       flexDirection: 'row',
                       alignItems: 'center',
                     }}>
-                    <Icon
+                     
+                           <Icon
                       style={{padding: 10, marginRight: 25}}
                       name="camera"
                       color="white"
                       size={30}></Icon>
+                     
+                   
                   </View>
+                  </TouchableOpacity>
                 </View>
 
                 <Text style={{color: '#ffffff', fontSize: 25}}>A7A GRAM</Text>
@@ -154,6 +170,7 @@ class MainScreen extends Component {
                   </View>
                 </View>
               </View>
+
 
               <View>
                 <ScrollView horizontal={true}>
