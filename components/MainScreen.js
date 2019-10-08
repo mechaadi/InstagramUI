@@ -15,9 +15,85 @@ import {Card} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import Stories from './stories';
 import Posts from './Posts';
+import firebase, { firestore } from 'react-native-firebase';
 
 class MainScreen extends Component {
+
+  
+  constructor(props){
+    super(props);
+    this.state={
+      post: []
+    }
+    this.ref = firebase.firestore().collection('dumy');
+  }
+  componentDidMount(){
+      this.sun = this.ref.onSnapshot((snap)=>{
+          const data = [];
+          snap.forEach((doc)=>{
+            data.push({
+              title: doc.data().title,
+              body : doc.data().body,
+              author: doc.data().author,
+              timestamp : this.timeSince(doc.data().timestamp)
+            })
+          });
+          this.setState({
+            post : data
+          });
+
+          console.log(this.state.post)
+          const date1 = this.state.post[0].timestamp;
+     //     console.log(this.timeSince(date1.seconds));
+         // console.log(this.timeSince(date1))
+      })
+    }
+
+   
+     timeSince(timestamp) {
+      var now = new Date(),
+      timeStamp = timestamp.toDate(),
+        secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
+
+        console.log(now);
+        console.log(timeStamp)
+
+      if(secondsPast < 60){
+        return parseInt(secondsPast) + 's ago' ;
+      }
+      if(secondsPast < 3600){
+        return parseInt(secondsPast/60) + 'm ago';
+      }
+      if(secondsPast <= 86400){
+        return parseInt(secondsPast/3600) + 'h ago';
+      }
+      if(secondsPast > 86400){
+          var day = timeStamp.getDate();
+          var month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
+          var year = timeStamp.getFullYear() == now.getFullYear() ? "" :  " "+timeStamp.getFullYear();
+          return day + " " + month + year;
+      }
+
+     
+    }
+  
+
+
+   // console.log(that.state.post)
+  
+
   render() {
+    const lapsList = this.state.post.map((data) => {
+      return (
+        <Posts
+              author="Clara"
+              image={require('../images/1.jpg')}
+              time={data.timestamp}
+              body={data.body}
+              author={data.author}
+            />
+      )
+    })
     const body =
       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.';
     return (
@@ -101,30 +177,16 @@ class MainScreen extends Component {
               </View>
             </View>
 
-            <Posts
-              author="Hannah Tyler"
-              image={require('../images/y.jpg')}
-              time="3 hours ago"
-              body={body}
-            />
-            <Posts
-              author="Clara"
-              image={require('../images/1.jpg')}
-              time="8 hours ago"
-              body={body}
-            />
-            <Posts
-              author="Ariana"
-              image={require('../images/2.jpg')}
-              time="12 hours ago"
-              body={body}
-            />
-            <Posts
-              author="Ellie"
-              image={require('../images/3.jpg')}
-              time="14 hours ago"
-              body={body}
-            />
+
+
+
+            <View style={styles.footer}>
+       
+        {lapsList}
+      </View>
+        
+          
+           
 
             <View></View>
           </ScrollView>
