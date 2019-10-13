@@ -37,13 +37,16 @@ class MainScreen extends Component {
   }
   componentDidMount(){
       this.sun = this.ref.onSnapshot((snap)=>{
+        
           const data = [];
           snap.forEach((doc)=>{
+            console.log(doc);
             data.push({
               title: doc.data().title,
               body : doc.data().body,
               author: doc.data().author,
-              timestamp : this.timeSince(doc.data().timestamp)
+              timestamp : "",
+              video: doc.data().video
             })
           });
           this.setState({
@@ -51,7 +54,7 @@ class MainScreen extends Component {
           });
 
           console.log(this.state.post)
-          const date1 = this.state.post[0].timestamp;
+         // const date1 = this.state.post[0].timestamp;
       })
     }
 
@@ -59,7 +62,7 @@ class MainScreen extends Component {
      timeSince(timestamp) {
       var now = new Date(),
       timeStamp = timestamp.toDate(),
-        secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
+      secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
 
         console.log(now);
         console.log(timeStamp)
@@ -92,13 +95,14 @@ class MainScreen extends Component {
     const lapsList = this.state.post.map((data) => {
       return (
         <TouchableOpacity
-        onPress={()=>{console.log("clicked"); navigate('ViewPost', {author: data.author, title: data.title, body: data.body, timestamp: data.timestamp})}}>
+        onPress={()=>{console.log("clicked"); navigate('ViewPost', {author: data.author, title: data.title, body: data.body, timestamp: data.timestamp, video: data.video})}}>
         <Posts
               author="Clara"
               image={require('../images/1.jpg')}
               time={data.timestamp}
               body={data.body}
               author={data.author}
+              video={data.video}
             />
             </TouchableOpacity>
       )
@@ -148,7 +152,7 @@ class MainScreen extends Component {
                   </TouchableOpacity>
                 </View>
 
-                <Text style={{color: '#ffffff', fontSize: 25}}>A7A GRAM</Text>
+                <Text style={{color: '#ffffff', fontSize: 25, fontFamily: "VINCHAND",}}>A7A GRAM</Text>
 
                 <View>
                   <View

@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import {View, Image, Text, TouchableOpacity} from 'react-native';
+import {View, Image, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/FontAwesome';
 import {
   responsiveHeight,
   responsiveWidth,
   responsiveFontSize,
 } from 'react-native-responsive-dimensions';
+import Video from 'react-native-video';
 
 class Posts extends Component {
   static navigationOptions = {
@@ -53,6 +54,18 @@ class Posts extends Component {
             marginTop: 10,
           }}
           source={this.props.image}></Image>
+
+
+<Video source={{uri: this.props.video}}   // Can be a URL or a local file.
+       ref={(ref) => {
+         this.player = ref
+       }} 
+       paused={true}                                     // Store reference
+       onBuffer={this.onBuffer}                // Callback when remote video is buffering
+       onError={this.videoError}   
+       style={styles.backgroundVideo}            // Callback when video cannot be loaded
+       />
+ 
 
         <View
           style={{
@@ -106,6 +119,18 @@ class Posts extends Component {
       </View>
     );
   }
+
+  
 }
+
+var styles = StyleSheet.create({
+  backgroundVideo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    bottom: 0,
+    right: 0,
+  },
+});
 
 export default Posts;

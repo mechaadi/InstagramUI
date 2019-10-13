@@ -134,6 +134,7 @@ android {
         versionCode 1
         versionName "1.0"
         multiDexEnabled true
+        renderscriptSupportModeEnabled true
     }
     splits {
         abi {
@@ -180,6 +181,9 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-video')
+    implementation project(':react-native-image-picker')
+    implementation project(':react-native-photo-editor')
     implementation project(':react-native-firebase')
     implementation project(':react-native-vector-icons')
     implementation fileTree(dir: "libs", include: ["*.jar"])
