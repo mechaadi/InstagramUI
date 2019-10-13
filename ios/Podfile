@@ -44,6 +44,8 @@ target 'InstagramClone' do
 
   pod 'react-native-video', :path => '../node_modules/react-native-video'
 
+  pod 'react-native-simple-toast', :path => '../node_modules/react-native-simple-toast'
+
   target 'InstagramCloneTests' do
     inherit! :search_paths
     # Pods for testing

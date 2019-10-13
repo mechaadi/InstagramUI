@@ -18,40 +18,25 @@ import DetailsScreen from './components/pages/DetailsScreen';
 import ProfileScreen from './components/pages/ProfileScreen';
 import NewPost from './components/pages/NewPost';
 
-const SettingsStack = createStackNavigator(
-  {
-    //Defination of Navigaton from setting screen
-    Settings: { screen: SettingsScreen },
-    Details: { screen: DetailsScreen },
-    Profile: { screen: ProfileScreen },
-  },
-  {
-    defaultNavigationOptions: {
-      //Header customization of the perticular Screen
-      headerStyle: {
-        backgroundColor: '#000000',
-      },
-      headerTintColor: '#FFFFFF',
-      title: 'Settings',
-      //Header title
-    },
-  }
-);
+
+
 
 const HomeStack = createStackNavigator(
   {
-    //Defination of Navigaton from home screen
     Home: { screen: MainScreen },
     ViewPost: { screen: ViewPost },
+    
   },
+
+  
+  
   {
     defaultNavigationOptions: {
       //Header customization of the perticular Screen
-      headerStyle: {
-        backgroundColor: '#42f44b',
-      },
-      headerTintColor: '#FFFFFF',
-      title: 'Home',
+      header: null,
+      headerLeft: null,
+      gesturesEnabled: false,
+     
       //Header title
     },
   }
@@ -65,6 +50,7 @@ const App = createBottomTabNavigator(
   },
   {
     defaultNavigationOptions: ({ navigation }) => ({
+      header: null,
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state;
         let IconComponent = Ionicons;
@@ -91,12 +77,6 @@ const App = createBottomTabNavigator(
   }
 );
 
-// const MainNavigator = createStackNavigator({
-//   Home: {screen: MainScreen},
-//   Posts: {screen: Posts},
-//   ViewPost : {screen: ViewPost }
-  
-// });
 
 
 

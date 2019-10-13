@@ -7,6 +7,8 @@ import { FloatingAction } from "react-native-floating-action";
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import firebase, { firestore } from 'react-native-firebase';
 import { func } from 'prop-types';
+import Toast from 'react-native-simple-toast';
+
 
 
 const options = {
@@ -34,23 +36,49 @@ export default class NewPost extends Component {
     this.state = {
       caption: '',
       location: '',
-      tags: ''
+      tags: '',
+      image: '',
     };
   }
 
   writeToDB(){
+    let that = this;
       console.log("hey there")
     firebase.firestore().collection("dumy").add({
         title: "this is title",
         author: "Laura",
-        image: "image_url",
+        image: this.state.image,
         body: this.state.caption,
         timestamp: new Date()
         
     }).then(function(v){
-        console.log("Added")
+        console.log(v.id);
+        const docid = v.id;
+        console.log("Added");
+        console.log("---------------------------"+that.state.image);
+        
+        if(that.state.image==''){
+          Toast.show('Posted Successfully', Toast.LONG);
+        }
+        else{
+
+        
+        firebase.storage().ref('/images/posts'+v.id).put(that.state.image).then((v)=>{
+          console.log(v.downloadURL);
+          firebase.firestore().collection("dumy").doc(docid).update({image: v.downloadURL}).then((v)=>{
+            Toast.show('Posted Successfully', Toast.LONG);
+            that.setState({image:''})
+          }).catch((c)=>{
+            Toast.show('Error uploading image but uploaded post', Toast.LONG);
+          });
+        }).catch((c)=>{
+          Toast.show('Error Posting content', Toast.LONG);
+        })
+      }
+
     }).catch(function(c){
         console.log(c);
+        console.log('failed');
     })
   }
 
@@ -67,13 +95,15 @@ export default class NewPost extends Component {
       } else {
         const source = {uri: response.uri};
         console.log(response.path);
-        RNPhotoEditor.Edit({
-          path: response.path,
-          // onDone: this.done(response),
-        });
+        // RNPhotoEditor.Edit({
+        //   path: response.path,
+        //   // onDone: this.done(response),
+        // });
         this.setState({
-          avatarSource: source,
+          image: response.path,
         });
+        console.log("-------------------LOGGED---------------------");
+        console.log(this.state.image);
       }
     });
   }

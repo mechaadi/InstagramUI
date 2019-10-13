@@ -12,6 +12,34 @@ class Posts extends Component {
   static navigationOptions = {
     header: null
 }
+
+timeSince(timestamp) {
+  var now = new Date(),
+  timeStamp = timestamp.toDate(),
+  secondsPast = (now.getTime() - timeStamp.getTime()) / 1000;
+
+//    console.log(now);
+  //  console.log(timeStamp)
+
+  if(secondsPast < 60){
+    return parseInt(secondsPast) + 's ago' ;
+  }
+  if(secondsPast < 3600){
+    return parseInt(secondsPast/60) + 'm ago';
+  }
+  if(secondsPast <= 86400){
+    return parseInt(secondsPast/3600) + 'h ago';
+  }
+  if(secondsPast > 86400){
+      var day = timeStamp.getDate();
+      var month = timeStamp.toDateString().match(/ [a-zA-Z]*/)[0].replace(" ","");
+      var year = timeStamp.getFullYear() == now.getFullYear() ? "" :  " "+timeStamp.getFullYear();
+      return day + " " + month + year;
+  }
+
+ 
+}
+
   render() {
 
     return (
@@ -40,11 +68,11 @@ class Posts extends Component {
             <Text style={{color: 'white', margin: 8}}>{this.props.author}</Text>
           </View>
           <Text style={{color: 'white', margin: 8, color: 'grey'}}>
-            {this.props.time}
+            {this.timeSince(this.props.time)}
           </Text>
         </View>
 
-        <Image
+        {this.props.image === "" ? <Text style={{color:"white"}}></Text> :  <Image
           style={{
             borderRadius: 20,
             margin: 5,
@@ -53,10 +81,11 @@ class Posts extends Component {
 
             marginTop: 10,
           }}
-          source={this.props.image}></Image>
+          source={{uri: this.props.image}}></Image>}
+       
 
 
-<Video source={{uri: this.props.video}}   // Can be a URL or a local file.
+{/* <Video source={{uri: this.props.video}}   // Can be a URL or a local file.
        ref={(ref) => {
          this.player = ref
        }} 
@@ -64,7 +93,7 @@ class Posts extends Component {
        onBuffer={this.onBuffer}                // Callback when remote video is buffering
        onError={this.videoError}   
        style={styles.backgroundVideo}            // Callback when video cannot be loaded
-       />
+       /> */}
  
 
         <View
